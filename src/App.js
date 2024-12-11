@@ -1,10 +1,14 @@
-import React from "react";
-import { popularGamesURL } from "./api";
+import React, { useEffect } from "react";
+import loadGames from "./actions/gamesAction";
+import { useDispatch } from "react-redux";
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadGames());
+  }, []);
   return (
     <>
-      <popularGamesURL />
-
       <div>Hi</div>
       <div>Hi</div>
       <div>Hi</div>
