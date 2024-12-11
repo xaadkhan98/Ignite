@@ -28,10 +28,15 @@ const nextYearDate = `${currentYear + 1}-${currentMonth}-${currentDay}`;
 
 // Popular Games
 const popularGames = `games?key=${apiKey}&dates=${lastYearDate},${currentDate}&ordering=-added`;
+const upcomingGames = `games?key=${apiKey}&dates=${currentDate},${nextYearDate}&ordering=-added`;
+const newGames = `games?key=${apiKey}&dates=${lastYearDate},${currentDate}&ordering=-released`;
 
 export const popularGamesURL = () => {
   return `${baseURL}${popularGames}`;
 };
-
-// Log the Popular Games URL
-console.log(popularGamesURL());
+export const upcomingGamesURL = () => {
+  return `${baseURL}${upcomingGames}`;
+};
+export const newGamesURL = () => {
+  return `${baseURL}${newGames}`;
+};
