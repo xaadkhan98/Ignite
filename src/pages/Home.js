@@ -16,7 +16,6 @@ const Home = () => {
 
   const games = useSelector((state) => state.game);
   const { popular, upcoming, newGames } = games;
-  console.log(popular);
 
   return (
     <GameList>
