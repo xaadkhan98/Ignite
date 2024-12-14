@@ -7,7 +7,7 @@ import { smallImage } from "../util";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const GameDetails = () => {
+const GameDetails = ({ pathId }) => {
   const navigate = useNavigate();
   const { game, screen, isLoading } = useSelector(
     (state) => state.detail || { game: {}, screen: {} }
@@ -20,14 +20,15 @@ const GameDetails = () => {
       navigate("/");
     }
   };
+  console.log(typeof pathId);
   return (
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailsHandler}>
-          <Detail>
+          <Detail layoutId={pathId}>
             <States>
               <div className="rating">
-                <h3>{game.name}</h3>
+                <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
               </div>
               <div className="info">
@@ -40,7 +41,8 @@ const GameDetails = () => {
               </div>
             </States>
             <Media>
-              <img
+              <motion.img
+                layoutId={`image ${pathId}`}
                 src={
                   game.background_image
                     ? smallImage(game.background_image, 1280)

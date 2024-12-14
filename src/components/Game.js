@@ -9,18 +9,25 @@ import { Link } from "react-router-dom";
 import { smallImage } from "../util";
 
 const Game = ({ name, released, id, img, key }) => {
+  const stringPathiD = id.toString();
   // Load Details
   const dispatch = useDispatch();
   const loadDetailHandler = () => {
     document.body.style.overflow = "hidden";
+    console.log(typeof id);
     dispatch(loadDetails(id));
   };
+
   return (
-    <StyledGame onClick={loadDetailHandler}>
+    <StyledGame layoutId={stringPathiD} onClick={loadDetailHandler}>
       <Link to={`/game/${id}`}>
-        <h3>{name}</h3>
+        <motion.h3 layoutId={`title ${stringPathiD}`}>{name}</motion.h3>
         <p>{released}</p>
-        <img src={img ? smallImage(img, 640) : "placeholder.jpg"} alt={name} />
+        <motion.img
+          layoutId={`image ${stringPathiD}`}
+          src={img ? smallImage(img, 640) : "placeholder.jpg"}
+          alt={name}
+        />
       </Link>
     </StyledGame>
   );
