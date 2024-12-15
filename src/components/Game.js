@@ -7,6 +7,7 @@ import loadGames from "../actions/gamesAction";
 import loadDetails from "../actions/detailAction";
 import { Link } from "react-router-dom";
 import { smallImage } from "../util";
+import { popUp } from "../animation";
 
 const Game = ({ name, released, id, img }) => {
   const stringPathiD = id.toString();
@@ -23,6 +24,9 @@ const Game = ({ name, released, id, img }) => {
       layout="crossfade"
       layoutId={stringPathiD}
       onClick={loadDetailHandler}
+      variants={popUp}
+      initial="hidden"
+      animate="show"
     >
       <Link to={`/game/${id}`}>
         <motion.h3 layout="crossfade" layoutId={`title ${stringPathiD}`}>

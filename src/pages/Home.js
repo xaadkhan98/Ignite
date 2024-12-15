@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 // Redux
 import { loadGames } from "../actions/gamesAction";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 //Components
 import Game from "../components/Game";
+import GameDetails from "../components/GameDetails";
 //Style and Animation
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import styled from "styled-components";
-import GameDetails from "../components/GameDetails";
-import { useLocation } from "react-router-dom";
+import { popUp } from "../animation";
 
 const Home = () => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const Home = () => {
   const { popular, upcoming, newGames, searched } = games;
 
   return (
-    <GameList>
+    <GameList variants={popUp} initial="hidden" animate="show">
       <LayoutGroup>
         <AnimatePresence>
           {path && <GameDetails pathId={path} />}

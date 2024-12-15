@@ -4,6 +4,7 @@ import logo from "../img/logo.svg";
 //Styling
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { fadeIn, popUp } from "../animation";
 //Redux
 import { fetchSearch } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
@@ -23,7 +24,7 @@ const Nav = () => {
     dispatch({ type: "CLEAR_SEARCH" });
   };
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <Logo onClick={clearSearched}>
         <img src={logo} alt="logo" />
         <h1>ignite</h1>
