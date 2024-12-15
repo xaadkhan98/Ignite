@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // Redux
-import loadGames from "../actions/gamesAction";
+import { loadGames } from "../actions/gamesAction";
 import { useDispatch, useSelector } from "react-redux";
 //Components
 import Game from "../components/Game";
@@ -20,7 +20,7 @@ const Home = () => {
   }, []);
 
   const games = useSelector((state) => state.game);
-  const { popular, upcoming, newGames } = games;
+  const { popular, upcoming, newGames, searched } = games;
 
   return (
     <GameList>
@@ -28,6 +28,26 @@ const Home = () => {
         <AnimatePresence>
           {path && <GameDetails pathId={path} />}
         </AnimatePresence>
+        {searched.length ? (
+          <div>
+            <h2>Searched Games</h2>
+            <Games>
+              {searched.map((game) => {
+                return (
+                  <Game
+                    name={game.name}
+                    released={game.released}
+                    id={game.id}
+                    img={game.background_image}
+                    key={game.id}
+                  />
+                );
+              })}
+            </Games>
+          </div>
+        ) : (
+          ""
+        )}
         <h2>Upcoming Games</h2>
         <Games>
           {upcoming.map((game) => {
