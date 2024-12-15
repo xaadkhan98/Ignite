@@ -26,7 +26,6 @@ const Home = () => {
     <GameList>
       <LayoutGroup>
         <AnimatePresence>
-          {" "}
           {path && <GameDetails pathId={path} />}
         </AnimatePresence>
         <h2>Upcoming Games</h2>

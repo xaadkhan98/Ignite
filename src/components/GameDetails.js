@@ -2,10 +2,19 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { smallImage } from "../util";
-
 //Redux
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+//Images
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+import nintendo from "../img/nintendo.svg";
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+//Import Stars
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
 const GameDetails = ({ pathId }) => {
   const navigate = useNavigate();
@@ -20,22 +29,58 @@ const GameDetails = ({ pathId }) => {
       navigate("/");
     }
   };
-  console.log(typeof pathId);
+
+  //Platform Images Function
+  const getPlatform = (platform) => {
+    switch (true) {
+      case platform.includes("Xbox"):
+        return xbox;
+      case platform.includes("PlayStation"):
+        return playstation;
+      case platform.includes("macOS"):
+        return apple;
+      case platform.includes("Steam"):
+        return steam;
+      case platform.includes("Nintendo"):
+        return nintendo;
+      default:
+        return gamepad;
+    }
+  };
+
+  //Stars Rating Logic
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<img alt="star-full" src={starFull} key={i}></img>);
+      } else {
+        stars.push(<img alt="star-empty" src={starEmpty} key={i}></img>);
+      }
+    }
+    return stars;
+  };
+
   return (
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailsHandler}>
-          <Detail layoutId={pathId}>
+          <Detail layout="crossfade" layoutId={pathId}>
             <States>
               <div className="rating">
                 <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <div className="info">
                 <h3>Platforms</h3>
                 <Platforms>
                   {game.platforms?.map((data) => (
-                    <h3 key={data.platform.id}>{data.platform.name}</h3>
+                    <img
+                      src={getPlatform(data.platform.name)}
+                      key={data.platform.id}
+                    ></img>
                   ))}
                 </Platforms>
               </div>
@@ -112,6 +157,11 @@ const States = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    display: inline;
+    height: 2rem;
+    width: 2rem;
+  }
 `;
 
 const Platforms = styled(motion.div)`

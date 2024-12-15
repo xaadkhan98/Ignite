@@ -8,7 +8,7 @@ import loadDetails from "../actions/detailAction";
 import { Link } from "react-router-dom";
 import { smallImage } from "../util";
 
-const Game = ({ name, released, id, img, key }) => {
+const Game = ({ name, released, id, img }) => {
   const stringPathiD = id.toString();
   // Load Details
   const dispatch = useDispatch();
@@ -19,11 +19,18 @@ const Game = ({ name, released, id, img, key }) => {
   };
 
   return (
-    <StyledGame layoutId={stringPathiD} onClick={loadDetailHandler}>
+    <StyledGame
+      layout="crossfade"
+      layoutId={stringPathiD}
+      onClick={loadDetailHandler}
+    >
       <Link to={`/game/${id}`}>
-        <motion.h3 layoutId={`title ${stringPathiD}`}>{name}</motion.h3>
+        <motion.h3 layout="crossfade" layoutId={`title ${stringPathiD}`}>
+          {name}
+        </motion.h3>
         <p>{released}</p>
         <motion.img
+          layout="crossfade"
           layoutId={`image ${stringPathiD}`}
           src={img ? smallImage(img, 640) : "placeholder.jpg"}
           alt={name}
